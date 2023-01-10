@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { Button } from "../styles/Button";
 import { CgMenu, CgCloseR } from "react-icons/cg";
-import { useAuth0, User } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
-  const { loginWithRedirect,isAuthenticated,logout,User } = useAuth0();
+  const { loginWithRedirect,isAuthenticated,logout,user } = useAuth0();
   const Nav = styled.nav`
     .navbar-list {
       display: flex;
@@ -152,26 +153,23 @@ const Navbar = () => {
               Contact
             </NavLink>
           </li>
-          {/* {
-          isAuthenticated && (
-          <li><p>
-            {User.name}</p>
+          {isAuthenticated && (
+            <li>
+              <p> {user.name} </p>
             </li>
-          )
-          }
-            {isAuthenticated ? (
-              <li>
-          <Button onClick={() => logout({ returnTo: window.location.origin })}>
-      Log Out
-    </Button>
-          </li>
-            ):(
-              <li>
-              <Button onClick={() => loginWithRedirect()}>Log In</Button>;
-              </li> 
-            )
-          } */}
-  
+          )}
+          {isAuthenticated ? (
+            <li>
+              <Button
+                onClick={() => logout({ returnTo: window.location.origin })}>
+                Log Out
+              </Button>
+            </li>
+          ) : (
+            <li>
+              <Button onClick={() => loginWithRedirect()}>Log In</Button>
+            </li>
+          )}
         </ul>
         {/* //nav icon */}
         <div className="mobile-navbar-btn">
